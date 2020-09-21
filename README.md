@@ -1,5 +1,11 @@
-# Welcome to GitHub Desktop!
+# 알고리즘 문제풀이!
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
 
-Write your name on line 6, save it, and then head back to GitHub Desktop.
+백준
+
+LEETCODE
+
+SW Academy
+
+
+#+알고리즘
