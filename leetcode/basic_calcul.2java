@@ -1,0 +1,33 @@
+class Solution {
+    public int calculate(String s) {
+        s = s.replaceAll(" ","");
+        int last =0;
+        int oper=0;int sign=1;
+        int num=0;int ans=0;
+        for (int i=0;i<s.length();i++){
+            char c = s.charAt(i);
+            if (Character.isDigit(c)){
+                num = num * 10 + (c-'0');
+                continue;
+            }
+
+            if (oper == 1)num = last * num;
+            if (oper ==-1)num = last / num;
+            oper = 0;
+
+            if (c=='+'||c=='-'){
+                ans += num * sign;
+                sign = c == '+'?1:-1;
+            }else if (c=='*' || c=='/'){
+                last = num;
+                oper = c=='*'?1:-1;
+            }
+            num=0;
+        }
+        if (oper ==1 ) ans += sign*num*last;
+        else if(oper == -1)ans += sign*last/num;
+        else
+            ans += sign*num;
+        return ans;
+    }
+}
