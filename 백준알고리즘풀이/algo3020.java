@@ -1,39 +1,49 @@
-package algo;
-import java.util.*;
-import java.io.*;
+package 백준;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
 public class algo3020 {
+    static int[] dp;
+    static int[] top,bottom;
+    static int n,h;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 
-	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		
-		String in[]=br.readLine().split(" ");
-		int l=Integer.parseInt(in[0]);
-		int h=Integer.parseInt(in[1]);
-		
-		int hmap[]=new int[h+1];
-		
-		for(int i=1;i<=l;i++) {
-				int t=Integer.parseInt(br.readLine());
-			if(i%2==1) {
-				for(int j=1;j<=t;j++)hmap[j]++;
-				
-			}else {
-				for(int j=h;j>h-t;j--)hmap[j]++;	
-			}
-		}
-		for(int i=1;i<=h;i++)System.out.println(hmap[i]);
-		
-		int min=Integer.MAX_VALUE-1;
-		int num=0;
-		for(int i=1;i<=h;i++) {
-			if(hmap[i]<min) {
-				min=hmap[i];num=i;
-			}
-		}
-		
-		System.out.println(min+" "+num);
-		
-	}
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n=Integer.parseInt(st.nextToken());
+        h=Integer.parseInt(st.nextToken());
 
+        top=new int[h+2];
+        bottom=new int[h+2];
+
+        for (int i=1;i<=n;i++){
+            int num = Integer.parseInt(br.readLine());
+
+            if (i%2==1){
+                bottom[num]++;
+            }else{
+                top[h-num+1]++;
+            }
+        }
+
+        for (int i=1;i<=h;i++){
+            top[i] += top[i-1];
+        }
+        for (int i=h;i>=1;i--){
+            bottom[i] += bottom[i+1];
+        }
+        int min=Integer.MAX_VALUE;
+        for (int i=1;i<=h;i++){
+            min = Math.min(min,bottom[i]+top[i]);
+        }
+        int ans=0;
+        for (int i=1;i<=h;i++){
+            if (min==bottom[i]+top[i])ans++;
+        }
+
+        System.out.println(min+" "+ans);
+    }
 }
